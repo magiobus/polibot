@@ -1,11 +1,16 @@
 defmodule Polibot.CandidateServices do
-  alias Polibot.InfoDictionaries
+  alias Polibot.{InfoDictionaries, Candidate}
 
   def create(fb_id) do
-    changeset = CandidateChangesets.creation(fb_id)
+    info = generate_info(fb_id)
+    changeset = CandidateChangesets.creation(%Candidate{}, info)
+    case Repo.insert(changeset) do
+      {:ok, candidate} -> candidates
+      {:error, _} -> :error_creating_candidate
+    end
   end
 
-  def generate_info(fb_id) do
+  defp generate_info(fb_id) do
     import Polibot.CandidateInfoServices
 
     info = %{fb_id: fb_id}
@@ -19,6 +24,6 @@ defmodule Polibot.CandidateServices do
          |> Map.put(:tendency, assign_random(:tendency))
          |> Map.put(:charisma, generate_random_percentage(30, 100))
 
-    info = Map.put(info, :first_name, assign_random(:first_name, info))
+    Map.put(info, :first_name, assign_random(:first_name, info))
   end
 end
