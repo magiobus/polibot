@@ -1,7 +1,7 @@
 defmodule Polibot.CandidateServices do
-  alias Polibot.{InfoDictionaries, Candidate}
+  alias Polibot.{InfoDictionaries, Candidate, CandidateChangesets, Repo}
 
-  def create(fb_id) do
+  def create!(fb_id) do
     info = generate_info(fb_id)
     changeset = CandidateChangesets.creation(%Candidate{}, info)
     case Repo.insert(changeset) do
