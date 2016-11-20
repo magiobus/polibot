@@ -5,7 +5,7 @@ defmodule Polibot.CandidateServices do
     info = generate_info(fb_id)
     changeset = CandidateChangesets.creation(%Candidate{}, info)
     case Repo.insert(changeset) do
-      {:ok, candidate} -> candidates
+      {:ok, candidate} -> candidate
       {:error, _} -> :error_creating_candidate
     end
   end

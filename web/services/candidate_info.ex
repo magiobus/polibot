@@ -50,7 +50,7 @@ defmodule Polibot.CandidateInfoServices do
     digits = :math.pow(10, zeros) |> round
     min = :math.pow(10, (zeros - 1)) |> round
     random = :random.uniform * digits |> round
-    case random do
+    cond do
       random < min -> random * 10
       :else -> random
     end

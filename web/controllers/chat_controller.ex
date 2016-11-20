@@ -3,7 +3,7 @@ defmodule Polibot.ChatController do
   alias Polibot.CandidateServices
   require IEx
 
-  @messages_url "https://graph.facebook.com/v2.6/me/messages?access_token=" <> System.gen_env("POLIBOT_FB_TOKEN")
+  @messages_url "https://graph.facebook.com/v2.6/me/messages?access_token=" <> System.get_env("POLIBOT_FB_TOKEN")
 
   def chat(conn, %{"entry" => [%{"messaging" => [%{"postback" => %{"payload" => "Let's run for presidency!"},
                                                    "recipient" => %{"id" => page_id},
