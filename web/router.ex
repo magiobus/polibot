@@ -19,8 +19,9 @@ defmodule Polibot.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Polibot do
-  #   pipe_through :api
-  # end
+  scope "/api", Polibot do
+    pipe_through :api
+
+    get "/chat", ChatController, :fb_callback
+  end
 end
