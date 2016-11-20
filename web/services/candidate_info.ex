@@ -36,4 +36,23 @@ defmodule Polibot.CandidateInfoServices do
     first_name
   end
 
+  def generate_boolean_state do
+    [state] = Enum.take_random([true, false], 1)
+    state
+  end
+
+  def generate_random_percentage(lower, higher) do
+    [percentage] = Enum.take_random(lower..higher, 1)
+    percentage
+  end
+
+  def generate_random_number(zeros) do
+    digits = :math.pow(10, zeros) |> round
+    min = :math.pow(10, (zeros - 1)) |> round
+    random = :random.uniform * digits |> round
+    case random do
+      random < min -> random * 10
+      :else -> random
+    end
+  end
 end
